@@ -37,11 +37,12 @@ plot(bij_bol)
 load('D:/Programação/RLandsat/Data/functions.RData')
 
 sp::is.projected(pntc_terr)
+
 #' Process K-means #################################################################
 #ae <- aeg#[aeg$gr==i,]
 stk_dos1 <- f_stkDOS1(roi = pntc_terr, fpath = pathto_dos1)
 mask_ae <- f_createRoiMask(maskpoly = pntc_terr, maskvalue = NA, band = band)
-stk_mask <- f_applmask(stk = stk_dos1, mask = mask_ae)
+stk_mask <- f_applmask(stk = stk_dos1, mask = mask_ae) # still to find the function code
 #stk_mask <- dropLayer(stk_mask, 1) # - Coastal blue
 pca_obj <- f_pca(stk = dropLayer(stk_mask, 1), corr = F, comps = 3)
 stk_pca <- pca_obj[[2]]
