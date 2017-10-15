@@ -7,6 +7,11 @@ lapply(kpacks, require, character.only=T)
 remove(kpacks, new.packs)
 #'##################################################################################
 
+#' Function pack####################################################################
+func <- grep("^f_", ls(), perl=TRUE, value = T)
+#save(list=func, file='D:/Dropbox/programacao/duat_zambezia/rdata/functions7.RData')
+load('D:/Programacao/RLandsat/functions7.RData')
+
 #'# Projections ####################################################################
 p.utm28n <- CRS("+init=epsg:32628") # UTM 28N Landsat Images
 p.wgs84 <- CRS("+init=epsg:4326") # WGS84 Long Lat
@@ -64,4 +69,5 @@ writeRaster(stk_txtr
 
 rcl <- matrix(c(0, 6, 1, 6, 12, 2, 12, 90, 3),
               ncol = 3, byrow = TRUE)
+
 
