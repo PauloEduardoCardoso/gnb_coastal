@@ -44,9 +44,11 @@ Understant product levels, particularly when delivered from bulk download order 
 - Typical bulk order (T1 product): LC08_L1TP_204052_20170106_20170312_01_T1_B1.tif
 - Typical ESPA download (T1 product): LC08_L1TP_204052_20170106_20170312_01_T1_sr_band1.tif
 
-From LEDAPS Product Manual v8.0 (https://goo.gl/92n5Nb)
+From LEDAPS Product Guide Manual v8.0 (for L 4 to 7 https://goo.gl/92n5Nb)
 Changes implemented in 2017-03-10: 
 "Edited for new quality assurance (QA) band information in Collection 1 (cfmask, cfmask_conf replaced by pixel_qa.) L1 quality band (bqa) removed from standard output. Per-pixel sensor/solar angle bands (derived from band 4) now provided with each product. toa_qa replaced by radsat_qa.""
+
+also described on LASRC Product Guide Manual v4.1 (for Landsat 8 ) (https://goo.gl/CxFGSy)
 
 ***
 #### Water/Land discrimination
