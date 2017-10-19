@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # Mapping coastal Habitats of Guinea Bissau
 
 <img src="https://github.com/PauloEduardoCardoso/gnb_coastal/blob/master/img/coastal_gnb_20170106.png" width="600">
@@ -34,8 +39,8 @@ Row              | 52
 
 ##### simple
 - From LaSRC pixel_qa band
-
+- MNDWI (very poor)
 ##### More complex
-- Classification of Potential Water Bodies Using Landsat 8 OLI and a Combination of Two Boosted Random Forest Classifiers
+- Classification of Potential Water Bodies Using Landsat 8 OLI and a Combination of Two Boosted Random Forest Classifiers (https://goo.gl/Xxh7gw)
 
-- Target Detection Method for Water Mapping Using Landsat 8 OLI/TIRS Imagery
+- Target Detection Method for Water Mapping Using Landsat 8 OLI/TIRS Imagery (https://goo.gl/RkD7Ss)
