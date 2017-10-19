@@ -1,8 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
 # Mapping coastal Habitats of Guinea Bissau
 
 <img src="https://github.com/PauloEduardoCardoso/gnb_coastal/blob/master/img/coastal_gnb_20170106.png" width="600">
