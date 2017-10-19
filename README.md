@@ -29,3 +29,13 @@ Scene ID         | LC08_L1TP_204052_20170106_20170312_01_T1
 Acquisition Date | 06-JAN-17
 Path             | 204
 Row              | 52
+
+#### Water/Land discrimination
+
+##### simple
+- From LaSRC pixel_qa band
+
+##### More complex
+- Classification of Potential Water Bodies Using Landsat 8 OLI and a Combination of Two Boosted Random Forest Classifiers
+
+- Target Detection Method for Water Mapping Using Landsat 8 OLI/TIRS Imagery
