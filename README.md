@@ -33,17 +33,18 @@ Row              | 52
 #### Important to clarify
 Understant product levels, particularly when delivered from bulk download order of obtained directly from ESPA notification
 
-- Typical bulk order T1 product: LC08_L1TP_204052_20170106_20170312_01_T1_B1
+##### Typical bulk order T1 product: LC08_L1TP_204052_20170106_20170312_01_T1_B1
 
-- Typical ESPA download T1 product: LC08_L1TP_204052_20170106_20170312_01_T1_sr_band1
-=======
-## Important to clarify
+##### Typical ESPA download T1 product: LC08_L1TP_204052_20170106_20170312_01_T1_sr_band1
+
+#### Important to clarify
 Understant product levels, particularly when delivered from bulk download order of obtained directly from ESPA notification
 
-Typical bulk order    T1 product: LC08_L1TP_204052_20170106_20170312_01_T1_B1
-Typical ESPA download T1 product: LC08_L1TP_204052_20170106_20170312_01_T1_sr_band1
+- Typical bulk order (T1 product): LC08_L1TP_204052_20170106_20170312_01_T1_B1
+- Typical ESPA download (T1 product): LC08_L1TP_204052_20170106_20170312_01_T1_sr_band1
 
 Why?
+
 #### Water/Land discrimination
 
 ##### simple
