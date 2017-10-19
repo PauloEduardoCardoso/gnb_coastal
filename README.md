@@ -9,7 +9,8 @@ I'd suggest us to work with functions from RSToolbox from Benjamin Leutner, part
 
 #### Git ssh key
 https://stackoverflow.com/questions/1595848/configuring-git-over-ssh-to-login-once
- 
+
+***
 #### Landsat Scenes
 We will explore Landsat Surface Reflectance Level-2 Science Data Products.
 Details here:
@@ -40,11 +41,12 @@ Understant product levels, particularly when delivered from bulk download order 
 #### Important to clarify
 Understant product levels, particularly when delivered from bulk download order of obtained directly from ESPA notification
 
-- Typical bulk order (T1 product): LC08_L1TP_204052_20170106_20170312_01_T1_B1
-- Typical ESPA download (T1 product): LC08_L1TP_204052_20170106_20170312_01_T1_sr_band1
+- Typical bulk order (T1 product): LC08_L1TP_204052_20170106_20170312_01_T1_B1.tif
+- Typical ESPA download (T1 product): LC08_L1TP_204052_20170106_20170312_01_T1_sr_band1.tif
 
 Why?
 
+***
 #### Water/Land discrimination
 
 ##### simple
