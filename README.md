@@ -2,10 +2,10 @@
 
 <img src="https://github.com/PauloEduardoCardoso/gnb_coastal/blob/master/img/coastal_gnb_20170106.png" width="600">
 
-Notes in English to avoid RStudio conflict with non UTF encoding.
-Just to start inserting code here
-I'd suggest us to work with functions from RSToolbox from Benjamin Leutner, particularly
-unsuperClass()
+Notes in English to avoid RStudio conflict with non UTF encoding (PT).
+
+#### Suggestion of approach
+I'd suggest us to work with functions from RSToolbox from Benjamin Leutner, particularly unsuperClass() to start.
 
 #### Git ssh key
 https://stackoverflow.com/questions/1595848/configuring-git-over-ssh-to-login-once
@@ -30,6 +30,13 @@ Acquisition Date | 06-JAN-17
 Path             | 204
 Row              | 52
 
+## Important to clarify
+Understant product levels, particularly when delivered from bulk download order of obtained directly from ESPA notification
+
+Typical bulk order    T1 product: LC08_L1TP_204052_20170106_20170312_01_T1_B1
+Typical ESPA download T1 product: LC08_L1TP_204052_20170106_20170312_01_T1_sr_band1
+
+Why?
 #### Water/Land discrimination
 
 ##### simple
