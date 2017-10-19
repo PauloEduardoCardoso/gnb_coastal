@@ -23,9 +23,16 @@ A Technical Guide for USGS products (focus on COllection 1)
 https://above.nasa.gov/pdfs/Landsat_Surface_Reflectance_ABoVE_21Apr2017.pdf
  
 The best scene capturing exposed sediments is:
+<<<<<<< HEAD
 
 ID:LC08_L1TP_204052_20170106_20170312_01_T1
 -------------------------------------------
 Acquisition Date | 06-JAN-17
 Path             | 204
 Row              | 52
+=======
+ID:LC08_L1TP_204052_20170106_20170312_01_T1
+Acquisition Date:06-JAN-17
+Path:204
+Row:52
+>>>>>>> 67ea5160f705c9605145b54f05453ac9314501fd
