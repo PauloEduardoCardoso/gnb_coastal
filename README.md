@@ -1,7 +1,6 @@
-# gnb coastal
-## Mapping coastal Habitats of Guinea Bissau based on satellite imagery
-![coastal GNB](https://github.com/PauloEduardoCardoso/gnb_coastal/blob/master/img/coastal_gnb_20170106.png)
+# Mapping coastal Habitats of Guinea Bissau
 
+<img src="https://github.com/PauloEduardoCardoso/gnb_coastal/blob/master/img/coastal_gnb_20170106.png" width="600">
 
 Notes in English to avoid RStudio conflict with non UTF encoding.
 Just to start inserting code here
