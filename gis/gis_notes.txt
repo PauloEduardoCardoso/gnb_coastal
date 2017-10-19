@@ -1,0 +1,9 @@
+The zip file contains the vectors that could be used to define the spatial extention of our analysis.
+
+ae_sedimentos_utm28n.shp
+gnb_utm28n.shp
+
+Some were included for aesthetics
+
+baixos_gnb.shp
+canais_gnb.shp
