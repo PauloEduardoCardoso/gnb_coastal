@@ -14,6 +14,7 @@ f_stkDOS1 <- function(roi = ae1, fpath = pathto_dos1, crop = F, scale=0.0001){
   return(i.stk)
 }
 
+#Test
 #stk_dos1 <- f_stkDOS1(roi = duat, fpath = pathto_dos1, crop = F)
 #stk_1 <- crop(stk_dos1, ae)
 #summary(stk_1[[1]])
