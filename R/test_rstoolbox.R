@@ -34,13 +34,13 @@ bij_bol <- rgdal::readOGR(dsn = 'D:/Sig/Bissau', layer = 'ae_sedimentos_utm28n')
 plot(bij_bol)
 
 #' Function pack ###################################################################
-load('D:/Programação/RLandsat/Data/functions.RData')
+#load('D:/Programação/RLandsat/Data/functions.RData')
 
-#' Read TIF
+#' Read stack of sr bands obtained with QGIS 
 stk_1 <- raster::stack(file.path(dir.work, 'LT05_19860218.tif'))
 stk_2 <- raster::stack(file.path(dir.work, 'LT05_19860407.tif'))
 
-#' Extract Latent Variables
+#' Extract Latent Variables ########################################################
 #' tasseledCAP
 tc1 <- RStoolbox::tasseledCap(stk_1, sat = "Landsat5TM")
 #plot(tc1)
@@ -54,6 +54,9 @@ raster::writeRaster(tc2, filename = file.path(dir.work, 'tcap2_.tif')
                     , options = c("INTERLEAVE=BAND", "TFW=YES")
                     , overwrite = TRUE , datatype = 'INT2S'
                     , bylayer = T)
+
+#' Extract vegIned #################################################################
+
 
 #' Process K-means #################################################################
 #ae <- aeg#[aeg$gr==i,]
