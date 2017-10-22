@@ -57,8 +57,6 @@ raster::writeRaster(tc2, filename = file.path(dir.work, 'tcap2_.tif')
 
 #' Process K-means #################################################################
 #ae <- aeg#[aeg$gr==i,]
-stk_dos1 <- f_stkDOS1(roi = pntc_terr, fpath = pathto_dos1)
 mask_ae <- f_createRoiMask(maskpoly = pntc_terr, maskvalue = NA, band = band)
 stk_mask <- f_applmask(stk = stk_dos1, mask = mask_ae) # still to find the function code
 #stk_mask <- dropLayer(stk_mask, 1) # - Coastal blue
-pca_obj <- f_pca(stk = dropLayer(stk_mask, 1), corr = F, comps = 3)
