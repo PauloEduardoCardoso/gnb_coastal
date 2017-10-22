@@ -4,7 +4,7 @@
 library(raster)
 library(RStoolbox)
 library(here) # https://github.com/jennybc/here_here
-
+library(ggplot2)
 #'# Read a BQA Band
 bqa <- raster('G:/satelite/landsat/LC082040522017010601T1/LC08_L1TP_204052_20170106_20170312_01_T1_pixel_qa.TIF')
 #'# BQA classes
@@ -56,7 +56,33 @@ raster::writeRaster(tc2, filename = file.path(dir.work, 'tcap2_.tif')
                     , bylayer = T)
 
 #' Extract vegIned #################################################################
+#' http://bleutner.github.io/RStoolbox/rstbx-docu/spectralIndices.html'
+#' NBRI	Normalised Burn Ratio Index	(Garcia 1991)
+#' nir, swir3	(nir - swir3)/(nir + swir3)
+#' stack (no thermal) nir: 4; swir3: 6
+nbr1 <- RStoolbox::spectralIndices(stk_1
+                                   , nir = "LT05_19860218.4"
+                                   , swir3 = "LT05_19860218.6"
+                                   , indices = "NBRI")
+nbr1
 
+raster::writeRaster(nbr1, filename = file.path(dir.work, 'nbr1_.tif')
+                    , options = c("TFW=YES")
+                    , overwrite = TRUE , datatype = 'FLT4S')
+
+nbr2 <- RStoolbox::spectralIndices(stk_2
+                                   , nir = "LT05_19860407.4"
+                                   , swir3 = "LT05_19860407.6"
+                                   , indices = "NBRI")
+nbr2
+
+raster::writeRaster(nbr2, filename = file.path(dir.work, 'nbr2_.tif')
+                    , options = c("INTERLEAVE=BAND", "TFW=YES")
+                    , overwrite = TRUE , datatype = 'FLT4S'
+                    , bylayer = T)
+
+ggR(nbr2, geom_raster = TRUE) +
+  scale_fill_gradientn(colours = c("black", "white"))
 
 #' Process K-means #################################################################
 #ae <- aeg#[aeg$gr==i,]
