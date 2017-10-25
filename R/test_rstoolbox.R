@@ -90,8 +90,8 @@ mask_ae <- f_createRoiMask(maskpoly = pntc_terr, maskvalue = NA, band = band)
 stk_mask <- f_applmask(stk = stk_dos1, mask = mask_ae) # still to find the function code
 #stk_mask <- dropLayer(stk_mask, 1) # - Coastal blue
 
-#' Reclass e-Cognition classification
-lcov <- raster('D:/Dropbox/Bissau/bijagos/ecognition/bijagos1986_all_3.tif')
+#' Reclass e-Cognition classification ##############################################
+lcov <- raster('D:/Dropbox/Bissau/bijagos/ecognition/bijagos1986_all_3.tif') # LCover
 ggR(lcov, geom_raster = TRUE) +
   scale_fill_gradientn(colours = terrain.colors(8), name = "Cover")
 
@@ -109,8 +109,8 @@ m <- c(-Inf, 2
 rclmat <- matrix(m, ncol=2, byrow=TRUE)
 rc <- reclassify(lcov, rclmat, include.lowest=FALSE, right=TRUE,
                  filename = file.path(dir.work, 'gnb_intertidal1986_.tif')
-                 , options = c("INTERLEAVE=BAND", "TFW=YES")
-                 , overwrite = TRUE , datatype = 'INT1U')
+                 , options = c("TFW=YES")
+                 , overwrite = TRUE, datatype = 'INT1U')
 
 ggR(rc, geom_raster = TRUE) +
   scale_fill_gradientn(colours = terrain.colors(3), name = "Cover")
