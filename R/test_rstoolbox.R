@@ -81,7 +81,7 @@ raster::writeRaster(nbr2, filename = file.path(dir.work, 'nbr2_.tif')
                     , overwrite = TRUE , datatype = 'FLT4S'
                     , bylayer = T)
 
-ggR(nbr2, geom_raster = TRUE) +
+ggR(nbr2-nbr1, geom_raster = TRUE) +
   scale_fill_gradientn(colours = c("black", "white"))
 
 #' Process K-means #################################################################
@@ -89,3 +89,28 @@ ggR(nbr2, geom_raster = TRUE) +
 mask_ae <- f_createRoiMask(maskpoly = pntc_terr, maskvalue = NA, band = band)
 stk_mask <- f_applmask(stk = stk_dos1, mask = mask_ae) # still to find the function code
 #stk_mask <- dropLayer(stk_mask, 1) # - Coastal blue
+
+#' Reclass e-Cognition classification
+lcov <- raster('D:/Dropbox/Bissau/bijagos/ecognition/bijagos1986_all_3.tif')
+ggR(lcov, geom_raster = TRUE) +
+  scale_fill_gradientn(colours = terrain.colors(8), name = "Cover")
+
+m <- c(-Inf, 2
+       ,NA, 2
+       ,0, 2
+       ,1, 1
+       ,2, 1
+       ,3, 1
+       ,4, 1
+       ,5, 1
+       ,6, 2
+       ,7, 3
+       ,8, 1)
+rclmat <- matrix(m, ncol=2, byrow=TRUE)
+rc <- reclassify(lcov, rclmat, include.lowest=FALSE, right=TRUE,
+                 filename = file.path(dir.work, 'gnb_intertidal1986_.tif')
+                 , options = c("INTERLEAVE=BAND", "TFW=YES")
+                 , overwrite = TRUE , datatype = 'INT1U')
+
+ggR(rc, geom_raster = TRUE) +
+  scale_fill_gradientn(colours = terrain.colors(3), name = "Cover")
