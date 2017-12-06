@@ -1,12 +1,12 @@
-## First steps in remote sensing with R
-library(raster)
-library(RStoolbox)
-library(cluster)
-library(rgdal)
+#'# Packages
+kpacks <- c('raster', 'sp', 'rgdal', 'RStoolbox', 'cluster')
+new.packs <- kpacks[!(kpacks %in% installed.packages()[ ,"Package"])]
+if(length(new.packs)) install.packages(new.packs)
+lapply(kpacks, require, character.only=T)
+remove(kpacks, new.packs)
+
 graphics.off()
 rm(list=ls())
-
-#beginCluster() #Required when using RStoolbox functions. It is also supposed to speed up processing of raster and rs-related functions
 
 #'## import shape guine-bissau
 gnb <- readOGR("D:/Dropbox/programacao/gnb_coastal/gis", "gnb_utm28n")
@@ -23,6 +23,8 @@ stk <- stack(
              , full.names = T)
 )
 
+#ggRGB(ESPA_lds8_2017_stack,r=3,g=2,b=1, stretch ="hist", ext=gnb)
+
 #'## Claud Mask using ESPA pixel_qa layer: NOT USED YET
 #'## https://landsat.usgs.gov/landsat-surface-reflectance-quality-assessment
 cshadow <- c(328, 392, 840, 904, 1350)
@@ -33,31 +35,28 @@ pixel_qa <- raster(list.files('G:/satelite/landsat/LC082040522017010601T1'
                               , full.names = T)
 )
 #ggR(pixel_qa)
-plot(pixel_qa)
-
-
-#'## Plotting
-plotRGB(stk, r=4,g=3,b=2, stretch="lin", ext=gnb[which(gnb$name_1 == "Bolama"),], axes=T)
-plot(gnb, add=T)
-#ggRGB(ESPA_lds8_2017_stack,r=3,g=2,b=1, stretch ="hist", ext=gnb)
+#plot(pixel_qa)
 
 #'## cortar a multilayer ESPA com a shape da guine
 cropstk <- crop(stk, gnb[which(gnb$name_1 == "Bolama"), ])
 plotRGB(cropstk,r=4,g=3,b=2, stretch="lin", axes=T, main="crop1")
+plot(gnb, add=T)
 
-#'## Water mask based on sr_band6 only
+#'## Water mask based on sr_band6 only threshold = 250 ########################
 water0 <- cropstk[[6]]
 m <- c(-Inf, 250, 0 # water
        ,250, Inf, 1)
 rclmat <- matrix(m, ncol=3, byrow=TRUE)
-water <- reclassify(water0, rclmat, include.lowest=FALSE, right=TRUE
-                    #, filename = file.path(dir.work, 'gnb_intertidal1986_.tif')
-                    #, options = c("TFW=YES")
-                    #, overwrite = TRUE, datatype = 'INT1U'
-)
+
+beginCluster()
+water <- raster::clusterR(water0, # Parallel
+  reclassify, args=list(rcl=rclmat, include.lowest=FALSE, right=TRUE)
+  )
+raster::endCluster()
+
 plot(water, main="water mask")
 
-#'## Land mask
+#'## Land mask ################################################################
 land0 <- cropstk[[6]]
 land0[] <- 0
 land <- mask(land0, gnb#[which(gnb$name_1 == "Bolama"), ]
@@ -78,7 +77,7 @@ values1_ESPA <- na.omit(values1_ESPA)
 head(values1_ESPA)
 tail(values1_ESPA)
 
-#'# kmeans classification 
+#'# kmeans classification  ###
 l8kmeans <- kmeans(values1_ESPA, 6, iter.max = 10, nstart = 10)
 kmeans_raster <- raster(stk_sed)
 kmeans_raster[i] <- l8kmeans$cluster
