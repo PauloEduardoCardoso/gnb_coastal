@@ -105,7 +105,7 @@ writeRaster(clara_raster
 library(tidyverse)
 #' Landsata 8 wavelenghts
 #' 
-l8wl <- read.table('G:/satelite/landsat/landsat8wavelenght.txt', sep = '\t',
+l8wl <- read.table(file.path(getwd(), 'data/landsat8wavelenght.txt'), sep = '\t',
                    stringsAsFactors = F, header = T)
 l8wl
 
