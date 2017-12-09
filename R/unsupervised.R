@@ -27,13 +27,13 @@ stk <- stack(
 
 #'## Claud Mask using ESPA pixel_qa layer: NOT USED YET
 #'## https://landsat.usgs.gov/landsat-surface-reflectance-quality-assessment
-cshadow <- c(328, 392, 840, 904, 1350)
-clouds <- c(352, 368, 416, 432, 480, 864, 880, 928, 944, 992)
-pixel_qa <- raster(list.files('G:/satelite/landsat/LC082040522017010601T1'
-                              , recursive = T
-                              , pattern = glob2rx("*pixel_qa*tif$")
-                              , full.names = T)
-)
+#cshadow <- c(328, 392, 840, 904, 1350)
+#clouds <- c(352, 368, 416, 432, 480, 864, 880, 928, 944, 992)
+#pixel_qa <- raster(list.files('G:/satelite/landsat/LC082040522017010601T1'
+#                              , recursive = T
+#                              , pattern = glob2rx("*pixel_qa*tif$")
+#                              , full.names = T)
+#)
 #ggR(pixel_qa)
 #plot(pixel_qa)
 
@@ -50,8 +50,8 @@ rclmat <- matrix(m, ncol=3, byrow=TRUE)
 
 beginCluster()
 water <- raster::clusterR(water0, # Parallel
-  reclassify, args=list(rcl=rclmat, include.lowest=FALSE, right=TRUE)
-  )
+                          reclassify, args=list(rcl=rclmat, include.lowest=FALSE, right=TRUE)
+)
 raster::endCluster()
 
 plot(water, main="water mask")
@@ -69,6 +69,7 @@ plot(landwat, main = 'sediment mask')
 #'##### unsupervised class attempt ############################################
 #'## abordagem raster package (3 different cassification)
 stk_sed <- cropstk * landwat
+stk_sed@data@names <- gsub('layer.', 'b', stk_sed@data@names )
 plot(stk_sed[[1]], main="stk 1")
 
 values1_ESPA <- getValues(stk_sed)
@@ -78,22 +79,49 @@ head(values1_ESPA)
 tail(values1_ESPA)
 
 #'# kmeans classification  ###
-l8kmeans <- kmeans(values1_ESPA, 6, iter.max = 10, nstart = 10)
+l8kmeans <- kmeans(values1_ESPA, 8, iter.max = 20, nstart = 10)
 kmeans_raster <- raster(stk_sed)
 kmeans_raster[i] <- l8kmeans$cluster
 plot(kmeans_raster, col=rainbow(20))
 
 writeRaster(kmeans_raster
-            , filename = file.path('G:/satelite/coastalGNB/sedimentos/gnb_intertidal2017_kmeans6_.tif')
+            , filename = file.path('G:/satelite/coastalGNB/sedimentos/gnb_intertidal2017_kmeans8_.tif')
             , options = c("TFW=YES")
             , overwrite = TRUE, datatype = 'INT1U'
 )
 
 #'# clara classification 
-clus <- clara(values1_ESPA, 15, samples=20, metric="manhattan", pamLike=T)
+clus <- clara(values1_ESPA, 8, samples=20, metric="manhattan", pamLike=T)
 clara_raster <- raster(stk_sed)
 clara_raster[i] <- clus$clustering
 plot(clara_raster)
 
-# done with cluster object		
-endCluster()
+writeRaster(clara_raster
+            , filename = file.path('G:/satelite/coastalGNB/sedimentos/gnb_intertidal2017_clara8_.tif')
+            , options = c("TFW=YES")
+            , overwrite = TRUE, datatype = 'INT1U'
+)
+
+library(tidyverse)
+#' Landsata 8 wavelenghts
+#' 
+l8wl <- read.table('G:/satelite/landsat/landsat8wavelenght.txt', sep = '\t',
+                   stringsAsFactors = F, header = T)
+l8wl
+
+vec <- data.frame(cbind(as.vector(clara_raster), values1_ESPA)) %>%
+  gather(key=band, value=sr, -V1) %>% 
+  filter(V1 != 1) %>%
+  group_by(V1, band) %>%
+  summarise(msr = mean(sr/10000), stdv = sd(sr/10000)) %>%
+  mutate(band=gsub('layer.', 'b', band)) %>%
+  left_join(l8wl, by = 'band')
+vec %>%
+  ggplot(aes(x=med, y=msr)) +
+  geom_ribbon(aes(fill = factor(V1), ymax = msr + stdv, ymin = msr - stdv), alpha = 0.2) +
+  geom_path(aes(group = factor(V1), colour = factor(V1))) +
+  geom_point(aes(colour = factor(V1))) +
+  labs(caption='Clara cluster Spectral signature'
+       ,x=expression('wavelenght'*(mu*m))
+       ,y='value', fill = 'Cluster', colour = 'Cluster'
+  ) 
